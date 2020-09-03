@@ -30,7 +30,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     //各セルを選択された時に実行されるメソッド
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        performSegue(withIdentifier: "cellSegue", sender: nil)
     }
     
     // セルが削除が可能なことがを伝えるメソッド
