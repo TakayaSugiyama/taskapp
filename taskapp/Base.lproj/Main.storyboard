@@ -135,10 +135,15 @@
                         <viewLayoutGuide key="safeArea" id="ucB-7a-tgZ"/>
                     </view>
                     <navigationItem key="navigationItem" id="2H4-eO-NmS"/>
+                    <connections>
+                        <outlet property="contentsTextView" destination="eDo-v3-5mZ" id="3Op-uQ-tUX"/>
+                        <outlet property="datePicker" destination="Rfu-A0-Xx7" id="2N3-DN-P3f"/>
+                        <outlet property="titleTextField" destination="52n-34-QpK" id="ddO-Rh-E1N"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qCd-CD-bVU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1765" y="118"/>
+            <point key="canvasLocation" x="1720" y="127"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="QPg-Ix-WRI">
