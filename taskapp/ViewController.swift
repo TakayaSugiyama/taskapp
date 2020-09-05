@@ -10,11 +10,12 @@ import UIKit
 import RealmSwift
 import UserNotifications
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     @IBOutlet weak var tableView: UITableView!
     
     //Realmインスタンスを取得する
     let realm = try! Realm()
+    @IBOutlet weak var searchBar: UISearchBar!
     
     //DB内のタスクが格納されるリスト
     //DBに近い順でソート
@@ -43,10 +44,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(Realm.Configuration.defaultConfiguration.fileURL!)
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
+        searchBar.delegate = self
     }
 
     //各セルを選択された時に実行されるメソッド
@@ -103,6 +104,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+    }
+    
+    //SearchButtonを押した時に呼び出される
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        //キーボードを閉じる
+        searchBar.endEditing(true)
+        //検索してデータを絞る
+        if searchBar.text == "" {
+            //元に戻す
+            self.taskArray = realm.objects(Task.self).sorted(byKeyPath: "date", ascending: true)
+            tableView.reloadData()
+        }else{
+           let query = NSPredicate(format: "category == %@", "\(searchBar.text!)")
+           print(realm.objects(Task.self).filter(query)) //デバッグ
+           self.taskArray = realm.objects(Task.self).filter(query)
+           tableView.reloadData()
+        }
     }
 }
 
